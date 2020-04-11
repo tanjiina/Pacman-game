@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Pacman Demo</title>
+	<script>
+			$(document).ready(function(){
+			   $('#ghost1').on("click", function(){
+				  $('#pacman').toggle();
+			   });
+			});
+	</script>
+	<style type = "text/css">
+		body{
+			margin: 0px;
+			background-color: black;
+			vertical-align: bottom;
+		}
+		div.row div{
+			width: 20px;
+			height: 20px;
+			/* border: 1px solid black; */
+			display: inline-block;
+			vertical-align: bottom;
+		}
+		div.brick{
+			background-color: rgb(62, 62, 158);
+			/* outline: 1px solid rgb(37, 186, 206); */
+			vertical-align: bottom;
+		}
+		div.coin{
+			background-image: url(img/coin.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+			vertical-align: bottom;
+			width: 5%;
+		}
+		div.empty{
+
+		} 
+		div.cherry{
+			background-image: url(img/cherry.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			vertical-align: bottom;
+
+		}
+		#pacman{
+			background-image: url(img/pacman.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			vertical-align: bottom;
+		}
+
+		#ghost1{
+			background-image: url(img/ghostred.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			vertical-align: bottom;
+		}
+		#ghost2{
+			background-image: url(img/ghostpink.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			vertical-align: bottom;
+		}
+		#ghost3{
+			background-image: url(img/ghostblue.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			vertical-align: bottom;
+		}
+		#ghost4{
+			background-image: url(img/ghostorange.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			vertical-align: bottom;
+		}
+		#score{
+			border: 2px solid rgb(199, 16, 16);
+			background-image: linear-gradient(rgb(199, 16, 16), rgb(500, 90, 50));
+			color: #fff;
+			font-family: monospace;
+			width: 120px;
+			height: 30px;
+			color:white;
+			padding: 6px;
+			text-align: left;
+			line-height: 30px;
+			position: absolute;
+			top: 0px;
+			left: 670px;
+		}
+
+	</style>
+</head>
+<body>
+    <!-- <div class = "row">
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+    </div>
+    <div class = "row">
+        <div class = "brick"></div>
+        <div class = "brick"></div>
+        <div class = "coin"></div>
+        <div class = "pacman"></div>
+        <div class = "coin"></div>
+        <div class = "empty"></div>
+        <div class = "empty"></div>
+        <div class = "empty"></div>
+        <div class = "coin"></div>
+        <div class = "brick"></div>
+    </div>
+    <div class = "row">
+		<div class = "brick"></div>
+		<div class = "coin"></div>
+		<div class = "brick"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "brick"></div>
+	</div>
+	<div class = "row">
+		<div class = "brick"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "coin"></div>
+		<div class = "brick"></div>
+	</div>
+	<div class = "row">
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+		<div class = "brick"></div>
+	</div> -->
+	<div id = "container"></div>
+		<div id = "world"></div>
+		<div id = "pacman" style="left: 20px; top: 20px"></div>
+		<div id = "ghost1"></div>
+		<div id = "ghost2"></div>
+		<div id = "ghost3"></div>
+		<div id = "ghost4"></div> 
+		<div class = "cherry"></div>
+		<div id = "score">Score: 100</div>
+	</div>
+
+
+	<!-- List of features to build:
+	Have JS display the world of brick/coin/etc DONEEEEEE
+	have the pacman move up and down DONEEEEE  -->
+
+	<script>
+		var world = [
+		[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+        [2,3,1,1,2,1,3,1,2,1,3,1,2,1,1,1,3,1,1,1,2,1,3,1,2,1,3,1,2,1,1,3,2],
+        [2,1,2,1,2,1,2,1,2,1,1,1,2,1,2,2,2,2,2,1,2,1,1,1,2,1,2,1,2,1,2,1,2],
+        [2,1,2,1,1,1,2,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,2,1,1,1,2,1,2],
+        [2,1,2,2,2,1,2,1,2,1,2,1,2,1,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,2,2,1,2],
+        [2,1,1,1,1,1,2,1,1,1,2,1,1,1,2,2,1,2,2,1,1,1,2,1,1,1,2,1,1,1,1,1,2],
+        [2,1,2,1,2,1,1,1,2,1,1,1,2,1,2,1,1,1,2,1,2,1,1,1,2,1,1,1,2,1,2,1,2],
+        [2,3,2,1,2,1,3,1,2,2,2,2,2,1,1,0,0,0,1,1,2,2,2,2,2,1,3,1,2,1,2,3,2],
+        [2,1,2,1,2,1,1,1,2,1,1,1,2,1,2,0,0,0,2,1,2,1,1,1,2,1,1,1,2,1,2,1,2],
+        [2,1,1,1,1,1,2,1,1,1,2,1,1,1,2,2,1,2,2,1,1,1,2,1,1,1,2,1,1,1,1,1,2],
+        [2,1,2,2,2,1,2,1,2,1,2,1,2,1,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,2,2,1,2],
+        [2,1,2,1,1,1,2,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,2,1,1,1,2,1,2],
+        [2,1,2,1,2,1,2,1,2,1,1,1,2,1,2,2,2,2,2,1,2,1,1,1,2,1,2,1,2,1,2,1,2],
+        [2,3,1,1,2,1,3,1,2,1,3,1,2,1,1,1,3,1,1,1,2,1,3,1,2,1,3,1,2,1,1,3,2],
+        [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+		];
+
+		var score = 0;
+
+		var pacman = {
+			x: 1,
+			y: 1
+		};
+
+		var ghosts = [
+			{
+				x: 0,
+				y: 0
+			},
+ 			{
+				x: 15,
+				y: 8
+			},
+			{
+				x: 16,
+				y: 8
+			},
+			{
+				x: 17,
+				y: 8			
+			},
+		];
+
+		function displayWorld(){
+			var output = '';
+
+			for (var i = 0; i < world.length; i++){
+				output += "\n<div class = 'row'>\n"
+				for(var j = 0; j<world[i].length; j++){
+					if(world[i][j] == 2)
+					output += "<div class = 'brick'></div>"
+					else if(world[i][j] == 1)
+					output += "<div class = 'coin'></div>"
+					else if(world[i][j] == 0)
+					output += "<div class = 'empty'></div>"
+					else if(world[i][j] == 3) 
+					output += "<div class = 'cherry'></div>"
+					// output = output + world[i][j];
+				}
+				output += "\n</div>";
+			}
+			// console.log(output);
+			document.getElementById('world').innerHTML = output;
+		}
+		function displayPacman(){
+			document.getElementById('pacman').style.top = pacman.y*20+"px";
+			document.getElementById('pacman').style.left = pacman.x*20+"px";
+		}
+
+		function displayGhosts(){
+			document.getElementById('ghost1').style.top = ghosts[0].y*20+"px";
+			document.getElementById('ghost1').style.left = ghosts[0].x*20+"px";
+			document.getElementById('ghost2').style.top = ghosts[1].y*20+"px";
+			document.getElementById('ghost2').style.left = ghosts[1].x*20+"px";
+			document.getElementById('ghost3').style.top = ghosts[2].y*20+"px";
+			document.getElementById('ghost3').style.left = ghosts[2].x*20+"px";
+			document.getElementById('ghost4').style.top = ghosts[3].y*20+"px";
+			document.getElementById('ghost4').style.left = ghosts[3].x*20+"px";
+		}
+
+		function displayScore(){
+			document.getElementById('score').innerHTML = "Score: " + score;
+		}
+
+		displayWorld();
+		displayPacman();
+		displayGhosts();
+		displayScore();
+
+		// function moveGhosts(){
+		// 	for()
+
+		// }
+
+		document.onkeydown = function(e){
+			if (e.keyCode == 37 && world[pacman.y][pacman.x-1] != 2){
+				document.getElementById('pacman').style.transform = "rotate(180deg)";
+				// transform: rotate(45deg);
+				pacman.x--;
+			}else if (e.keyCode ==39 && world[pacman.y][pacman.x+1] != 2){
+				document.getElementById('pacman').style.transform = "rotate(360deg)";
+				pacman.x++;
+			}else if (e.keyCode ==40 && world[pacman.y+1][pacman.x] != 2){
+				document.getElementById('pacman').style.transform = "rotate(90deg)";
+				pacman.y++;
+			}else if (e.keyCode == 38 && world[pacman.y-1][pacman.x] != 2){
+				document.getElementById('pacman').style.transform = "rotate(260deg)";
+				pacman.y--;
+			}
+			if(world[pacman.y][pacman.x] == 1){
+				world[pacman.y][pacman.x] = 0;
+				score +=10;
+				displayWorld();
+				displayScore();
+				if(score==2760){
+				console.log("Perfect Score")}
+			}
+			if(world[pacman.y][pacman.x] == 3){
+				world[pacman.y][pacman.x] = 0;
+				score +=20;
+				displayWorld();
+				displayScore();
+				if(score==2760){
+				console.log("Perfect Score")}
+			}
+			
+			console.log(e.keyCode);
+			displayPacman();
+		}
+	</script>
+
+</body>
+</html>
